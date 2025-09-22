@@ -7,10 +7,27 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+
+#executables
+add_executable(publisher src/publisher.cpp)
+add_executable(subscriber src/subscriber.cpp)
+
+#ament_targets (idk what the fk are these for just write it down)
+ament_target_dependencies(publisher rclcpp std_msgs)
+ament_target_dependencies(subscriber rclcpp std_msgs)
+
+#install
+install(TARGETS
+  publisher
+  subscriber
+  DESTINATION lib/${PROJECT_NAME}
+)
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
